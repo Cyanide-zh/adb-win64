@@ -1,1 +1,67 @@
+name: Build platform-tools
+on:
+  watch:
+    types: [started]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build platform-tools by ${{ github.actor }}
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+    - uses: actions/checkout@v3
+    - name: Download project
+      run: |
+        sudo apt-get install  mingw-w64 git make 
+        cd $GITHUB_WORKSPACE
+        git clone -b android-p-preview-4 https://github.com/Cyanide-zh/adb-win64
+        cd adb-win64
+
+    - name: Download sources and dependencies
+      run: |
+        ./get-sources.sh
+        ./dependencies.sh
+                
+    - name: Build openssl
+      run: |
+        ./build-openssl.sh
+        
+    - name: Build adb
+      run: |
+        ./build-adb.sh
+           if [ -f ./android-adb/system/core/adb/adb.exe ]; then
+               echo "CHECK_ADB_IS_OK=true" >> $GITHUB_ENV
+           else
+               echo "ADB is empty"
+               exit 1
+           fi
+        
+    - name: Build fastboot
+      run: |
+        ./build-fastboot.sh
+           if [ -f ./android-adb/system/core/fastboot/fastboot.exe ]; then
+               echo "CHECK_FASTBOOT_IS_OK=true" >> $GITHUB_ENV
+           else
+               echo "FASTBOOT is empty"
+               exit 1
+           fi
+        echo "compilation completed "$(date)
+        
+    - name: Upload adb binary
+      if: env.CHECK_ADB_IS_OK == 'true'
+      uses: actions/upload-artifact@v3
+      with:
+        name: adb_"$(date)"_AMD64.exe
+        path: adb-win64/android-adb/system/core/adb/adb.exe
+
+          
+    - name: Upload fastboot binary
+      if: env.CHECK_FASTBOOT_IS_OK == 'true'
+      uses: actions/upload-artifact@v3
+      with:
+        name: fastboot_"$(date)"_AMD64.exe
+        path: adb-win64/android-adb/system/core/fastboot/fastboot.exe
+
 
