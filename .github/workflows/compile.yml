@@ -24,13 +24,13 @@ jobs:
         ./get-sources.sh
         ./dependencies.sh
                 
-    - name: Build openssl
-      run: |
-        ./build-openssl.sh
+ #   - name: Build openssl
+ #     run: |
+ #       ./build-openssl.sh
         
     - name: Build adb
       run: |
-        ./build-adb.sh
+        ./build.sh
            if [ -f ./android-adb/system/core/adb/adb.exe ]; then
                echo "CHECK_ADB_IS_OK=true" >> $GITHUB_ENV
            else
