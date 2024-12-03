@@ -16,7 +16,7 @@ jobs:
       run: |
         sudo apt-get install  mingw-w64 git make 
         cd $GITHUB_WORKSPACE
-        git clone -b android-p-preview-4 https://github.com/Cyanide-zh/adb-win64
+        git clone -b master https://github.com/Cyanide-zh/adb-win64
         cd adb-win64
 
     - name: Download sources and dependencies
