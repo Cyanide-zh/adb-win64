@@ -9,7 +9,8 @@ tar -xvzf openssl-1.0.2n.tar.gz
 # -------------------------
 
 # Branch to checkout from Android source code repo
-branch=android-p-preview-4
+#branch=android-p-preview-4
+branch=main
 
 # DOWNLOAD necessary files
 # -------------------------
