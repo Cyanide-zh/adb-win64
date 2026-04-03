@@ -51,19 +51,16 @@ jobs:
            fi
         echo "compilation completed "$(date)
         
-    - name: Upload adb binary
-      if: env.CHECK_ADB_IS_OK == 'true'
-      uses: actions/upload-artifact@v3
+    - name: Upload binaries
+      #if: env.CHECK_ADB_IS_OK == 'true'
+      uses: actions/upload-artifact@v4
       with:
-        name: adb_AMD64.exe
-        path: adb.exe
+        name: platform_tools_Windows_AMD64
+        path: |
+          adb.exe
+          fastboot.exe
+        
 
-          
-    - name: Upload fastboot binary
-      if: env.CHECK_FASTBOOT_IS_OK == 'true'
-      uses: actions/upload-artifact@v3
-      with:
-        name: fastboot_AMD64.exe
-        path: fastboot.exe
+
 
 
