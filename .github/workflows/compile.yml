@@ -24,7 +24,7 @@ jobs:
     - name: Download sources and dependencies
       run: |
         ./get-sources.sh
-        ./dependencies.sh
+
                 
     - name: Build openssl
       run: |
