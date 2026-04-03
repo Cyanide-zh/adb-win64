@@ -51,7 +51,7 @@ jobs:
         
     - name: Upload adb binary
       if: env.CHECK_ADB_IS_OK == 'true'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: adb_"$(date)"_AMD64.exe
         path: adb-win64/android-adb/system/core/adb/adb.exe
@@ -59,7 +59,7 @@ jobs:
           
     - name: Upload fastboot binary
       if: env.CHECK_FASTBOOT_IS_OK == 'true'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: fastboot_"$(date)"_AMD64.exe
         path: adb-win64/android-adb/system/core/fastboot/fastboot.exe
