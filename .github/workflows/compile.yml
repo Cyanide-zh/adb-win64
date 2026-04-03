@@ -15,6 +15,8 @@ jobs:
     - name: Download project
       run: |
         cd $GITHUB_WORKSPACE
+        echo $(date "+%Y-%m-%d_%H-%M-%S")
+        echo starting
         sudo apt-get install  mingw-w64 git make 
         git clone -b master https://github.com/Cyanide-zh/adb-win64
         cd adb-win64
@@ -53,7 +55,7 @@ jobs:
       if: env.CHECK_ADB_IS_OK == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: adb_"$(date "+%Y-%m-%d_%H-%M-%S")"_AMD64.exe
+        name: adb_$(date "+%Y-%m-%d_%H-%M-%S")_AMD64.exe
         #path: adb-win64/android-adb/system/core/adb/adb.exe
         path: adb.exe
 
@@ -62,7 +64,7 @@ jobs:
       if: env.CHECK_FASTBOOT_IS_OK == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: fastboot_"$(date "+%Y-%m-%d_%H-%M-%S")"_AMD64.exe
+        name: fastboot_$(date "+%Y-%m-%d_%H-%M-%S")_AMD64.exe
         #path: adb-win64/android-adb/system/core/fastboot/fastboot.exe
         path: fastboot.exe
 
